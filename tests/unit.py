@@ -14,7 +14,7 @@ class TestUnplagEntity(unittest.TestCase):
 
 class TestConnectionEntity(unittest.TestCase):
     def test_connection(self):
-        conn = Connection('test_key', 'test_secret')
+        conn = Connection('test_key', 'test_secret', 'http://unplag.com')
         conn.create()
         self.assertIsNotNone(conn.oauth_session)
         self.assertIsInstance(conn.oauth_session, OAuth1Session)

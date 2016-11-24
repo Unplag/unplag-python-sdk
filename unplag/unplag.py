@@ -35,8 +35,8 @@ class Unplag(object):
         self.secret = secret
 
         # Check if credentials is valid, else raise exception
-        if Connection(self.key, self.secret).ping():
-            conn = Connection(self.key, self.secret)
+        if Connection(self.key, self.secret, self.server).ping():
+            conn = Connection(self.key, self.secret, self.server)
             conn.create()
             self.oauth_session = conn.oauth_session
 

@@ -9,9 +9,10 @@ class Connection(object):
     """ Representation of connection abstact in Unplag
         Not needed to change something here. """
 
-    def __init__(self, key, secret):
+    def __init__(self, key, secret, server):
         self.key = key
         self.secret = secret
+        self.server = server
         self.oauth_session = None
 
     def create(self):
@@ -33,7 +34,7 @@ class Connection(object):
 
         self.create()
 
-        resp = self.oauth_session.get('https://unplag.com/api/v2/file/get')
+        resp = self.oauth_session.get(self.server + '/api/v2/file/get')
         if resp.status_code == 401:
             raise Exception('Unauthorized')
         else:
