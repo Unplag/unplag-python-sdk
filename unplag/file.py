@@ -6,6 +6,9 @@ from os.path import splitext
 from requests_toolbelt import MultipartEncoder
 from msgpack import packb
 
+from .response import UnplagMainException
+from .response import UnplagFileResponse
+
 
 class File(object):
     """ Representation of file abstact in Unplag """
@@ -22,7 +25,7 @@ class File(object):
         :return: string
         """
         resp = self.oauth_session.post(self.server + '/api/v2/file/delete', data={'id': id})
-        return resp.text
+        return UnplagFileResponse(resp)
 
     def get(self, id):
         """
@@ -32,7 +35,7 @@ class File(object):
         :return: string
         """
         resp = self.oauth_session.get(self.server + '/api/v2/file/get?id=%s' % id)
-        return resp.text
+        return UnplagFileResponse(resp)
 
     def upload(self, path, upload_type='multipart', timeout=600):
         """
@@ -66,8 +69,8 @@ class File(object):
 
         elif upload_type == 'base64':
             # TODO: implement base64 upload
-            raise Exception('Not implemented')
+            raise UnplagMainException('Not implemented')
         else:
-            raise Exception('Upload type not found!')
+            raise UnplagMainException('Upload type not found!')
 
-        return resp.text
+        return UnplagFileResponse(resp)

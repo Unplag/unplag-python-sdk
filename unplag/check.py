@@ -2,6 +2,9 @@
 This module represents check abstraction in Unplag.
 """
 
+from .response import UnplagMainException
+from .response import UnplagCheckResponse
+
 
 class Check(object):
     """ Representation of Check abstact in Unplag """
@@ -30,7 +33,7 @@ class Check(object):
         }
 
         resp = self.oauth_session.post(self.server + '/api/v2/check/create', data=parameters)
-        return resp.text
+        return UnplagCheckResponse(resp)
 
     def delete(self, id):
         """
@@ -40,7 +43,7 @@ class Check(object):
         :return: responce string
         """
         resp = self.oauth_session.post(self.server + '/api/v2/check/delete', data={"id": id})
-        return resp.text
+        return UnplagCheckResponse(resp)
 
     def generate_pdf(self, id, lang="en_EN"):
         """
@@ -52,7 +55,7 @@ class Check(object):
         """
 
         resp = self.oauth_session.post(self.server + '/api/v2/check/generate_pdf', data={"id": id, "lang": lang})
-        return resp.text
+        return UnplagCheckResponse(resp)
 
     def get(self, id):
         """
@@ -62,12 +65,12 @@ class Check(object):
         :return: responce string
         """
         resp = self.oauth_session.get(self.server + '/api/v2/check/get?id=%s' % id)
-        return resp.text
+        return UnplagCheckResponse(resp)
 
     def get_report_link(self, id, lang='en_EN', show_lang_picker=0):
         # TODO: check this one more time
         resp = self.oauth_session.get(self.server + '/api/v2/check/get_report_link?id=%s?lang=%s?show_lang_picker=%s' % (id, lang, show_lang_picker))
-        return resp.text
+        return UnplagCheckResponse(resp)
 
     def toogle_citations(self, id, exclude_citations, exclude_references):
         """
@@ -86,7 +89,7 @@ class Check(object):
         }
 
         resp = self.oauth_session.post(self.server + '/api/v2/check/toggle', data=parameters)
-        return resp.text
+        return UnplagCheckResponse(resp)
 
     def track_progress(self, id):
         """
@@ -97,4 +100,4 @@ class Check(object):
         """
 
         resp = self.oauth_session.get(self.server + '/api/v2/check/progress?id=%s' % id)
-        return resp.text
+        return UnplagCheckResponse(resp)

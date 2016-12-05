@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='unplag',
-      version='1.0.2',
+      version='1.0.3',
       description='Unplag API python client',
       url='https://unplag.com',
       author='Oleg Mykolaichenko',
@@ -9,9 +9,10 @@ setup(name='unplag',
       license='Apache 2.0 License',
       packages=['unplag'],
       install_requires=[
-            'requests_oauthlib',
-            'requests_toolbelt',
+            'requests>=2.12.3',
+            'requests_oauthlib>=0.6.2',
+            'requests_toolbelt>=0.7.0',
             'msgpack-python>=0.4.8',
       ],
-      test_suite = 'tests',
+      test_suite='tests',
       zip_safe=False)
