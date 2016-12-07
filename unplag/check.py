@@ -2,7 +2,8 @@
 This module represents check abstraction in Unplag.
 """
 
-from .response import UnplagMainException
+from time import sleep
+
 from .response import UnplagCheckResponse
 
 
@@ -35,6 +36,29 @@ class Check(object):
         resp = self.oauth_session.post(self.server + '/api/v2/check/create', data=parameters)
         return UnplagCheckResponse(resp)
 
+    def create_sync(self, *args, **kwargs):
+        """
+        Advanced method, wraps default API to make synchronous check
+        Start check and wait for it completion
+        Params similar to create method
+
+        :param args: pass to create method file id
+        :param kwargs: pass to create method other parameters
+        :return: UnplagCheckResponse, object
+        """
+
+        check = self.create(*args, **kwargs)
+
+        check_id = check.response['check']['id']
+        progress = check.response['check']['progress']
+
+        while progress < 1:
+            progress_resp = self.track_progress(check_id)
+            progress = progress_resp.response['progress'][str(check_id)]
+            sleep(5)
+
+        return self.get(check_id)
+
     def delete(self, id):
         """
         Delete check for check id
@@ -42,6 +66,7 @@ class Check(object):
         :param id: check id (string or int)
         :return: responce string
         """
+
         resp = self.oauth_session.post(self.server + '/api/v2/check/delete', data={"id": id})
         return UnplagCheckResponse(resp)
 
@@ -64,6 +89,7 @@ class Check(object):
         :param id: check id
         :return: responce string
         """
+
         resp = self.oauth_session.get(self.server + '/api/v2/check/get?id=%s' % id)
         return UnplagCheckResponse(resp)
 

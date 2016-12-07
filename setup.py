@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='unplag',
-      version='1.0.3',
+      version='1.0.4',
       description='Unplag API python client',
       url='https://unplag.com',
       author='Oleg Mykolaichenko',
