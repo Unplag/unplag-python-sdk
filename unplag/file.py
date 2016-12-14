@@ -22,7 +22,7 @@ class File(object):
         Delete file from library
 
         :param id: file id in library, string or int
-        :return: string
+        :return: UnplagFileResponse
         """
         resp = self.oauth_session.post(self.server + '/api/v2/file/delete', data={'id': id})
         return UnplagFileResponse(resp)
@@ -32,7 +32,7 @@ class File(object):
         Get file info from library
 
         :param id: file id in library, string or int
-        :return: string
+        :return: UnplagFileResponse
         """
         resp = self.oauth_session.get(self.server + '/api/v2/file/get?id=%s' % id)
         return UnplagFileResponse(resp)
@@ -42,11 +42,11 @@ class File(object):
         Upload file to library
 
         :param path: full or absolute path to file
-        :param upload_type: allowed upload using 'msgpack', 'multipart' or 'base64'
+        :param upload_type: allowed upload using 'msgpack', 'multipart'
                             default is multipart
         :param timeout: timeout for uploading file,
                         default is 600 seconds (10 minutes)
-        :return: string
+        :return: UnplagFileResponse
         """
 
         def get_file_extension(path):
@@ -67,9 +67,6 @@ class File(object):
             file = packb({'format': file_ext, 'file': open(path, 'rb').read()})
             resp = self.oauth_session.post(upload_url, data=file, headers={'Content-Type':  'application/x-msgpack'}, timeout=timeout)
 
-        elif upload_type == 'base64':
-            # TODO: implement base64 upload
-            raise UnplagMainException('Not implemented')
         else:
             raise UnplagMainException('Upload type not found!')
 

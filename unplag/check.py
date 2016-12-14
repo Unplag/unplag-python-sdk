@@ -23,7 +23,7 @@ class Check(object):
                     "my_library", "web", "external_database", "doc_vs_docs", "web_and_my_library"
         :param exclude_citations: boolean
         :param exclude_references: boolean
-        :return: request responce, string
+        :return: UnplagCheckResponse
         """
 
         parameters = {
@@ -44,7 +44,7 @@ class Check(object):
 
         :param args: pass to create method file id
         :param kwargs: pass to create method other parameters
-        :return: UnplagCheckResponse, object
+        :return: UnplagCheckResponse
         """
 
         check = self.create(*args, **kwargs)
@@ -64,7 +64,7 @@ class Check(object):
         Delete check for check id
 
         :param id: check id (string or int)
-        :return: responce string
+        :return: UnplagCheckResponse
         """
 
         resp = self.oauth_session.post(self.server + '/api/v2/check/delete', data={"id": id})
@@ -76,7 +76,7 @@ class Check(object):
 
         :param id: finished check id
         :param lang: main report language "en_EN", "uk_UA", "es_ES", "nl_BE"
-        :return:responce string
+        :return: UnplagCheckResponse
         """
 
         resp = self.oauth_session.post(self.server + '/api/v2/check/generate_pdf', data={"id": id, "lang": lang})
@@ -87,7 +87,7 @@ class Check(object):
         Get info about check
 
         :param id: check id
-        :return: responce string
+        :return: UnplagCheckResponse
         """
 
         resp = self.oauth_session.get(self.server + '/api/v2/check/get?id=%s' % id)
@@ -105,7 +105,7 @@ class Check(object):
         :param id: check id
         :param exclude_citations: bool
         :param exclude_references: bool
-        :return: responce string
+        :return: UnplagCheckResponse
         """
 
         parameters = {
@@ -122,7 +122,7 @@ class Check(object):
         Track progress for check
 
         :param id: check id
-        :return: responce string
+        :return: UnplagCheckResponse
         """
 
         resp = self.oauth_session.get(self.server + '/api/v2/check/progress?id=%s' % id)

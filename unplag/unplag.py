@@ -34,11 +34,10 @@ class Unplag(object):
         self.key = key
         self.secret = secret
 
-        # Check if credentials is valid, else raise exception
-        if Connection(self.key, self.secret, self.server).ping():
-            conn = Connection(self.key, self.secret, self.server)
-            conn.create()
-            self.oauth_session = conn.oauth_session
+        # Create connection and session
+        conn = Connection(self.key, self.secret, self.server)
+        conn.create()
+        self.oauth_session = conn.oauth_session
 
         # Initialize File entity
         self.file = File(self.oauth_session, self.server)

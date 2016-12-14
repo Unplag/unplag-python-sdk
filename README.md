@@ -8,17 +8,26 @@ As this is an open-source project that is community maintained, do not be surpri
 Quickstart
 ----------
 
+Installation
+
+    sudo pip install .
+
 Feeling impatient? I like your style.
 
+    from unplag import Unplag
 
-        from unplag import Unplag
+    un = Unplag('api_key', 'api_secret')    # Creating connection
 
-        un = Unplag('api_key', 'api_secret')
+    upload = un.file.upload('~/Downloads/original.pdf')     # Upload file from path
+    
+    check = un.check.create_sync(upload_resp.response['file']['id'])    # Start check using upload id 
 
-        un.file.upload('~/Downloads/original.pdf')
-        
-        un.file.get(4354)
-        
-        un.check.create(93345)
-        
-        un.check.get(93345)
+
+Short syntax
+------------
+
+    from unplag import Unplag
+
+    un = Unplag('api_key', 'api_secret')
+    
+    un.check.create_sync(un.file.upload('~/Downloads/original.pdf').response['file']['id']).response
