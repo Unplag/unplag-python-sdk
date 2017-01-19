@@ -1,0 +1,13 @@
+language: python
+
+sudo: false
+
+python:
+  - "2.7"
+  - "3.5"
+
+install:
+  - travis_retry pip install tox-travis
+  - travis_retry pip install -r requirements.txt
+
+script: tox

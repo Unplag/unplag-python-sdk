@@ -1,6 +1,8 @@
 UNPLAG Python Library
 ===================
 
+[![Build Status](https://api.travis-ci.org/Unplag/unplag-python-sdk.svg?branch=master)](https://travis-ci.org/Unplag/unplag-python-sdk)
+
 This library eases the use of the Unplag REST API from Python and it has been used in production for years.
 
 As this is an open-source project that is community maintained, do not be surprised if some bugs or features are not implemented quickly enough.
