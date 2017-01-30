@@ -13,6 +13,7 @@ setup(name='unplag',
             'requests_oauthlib>=0.6.2',
             'requests_toolbelt>=0.7.0',
             'msgpack-python>=0.4.8',
+            'responses>=0.5.1',
       ],
       test_suite='tests',
       zip_safe=False)
