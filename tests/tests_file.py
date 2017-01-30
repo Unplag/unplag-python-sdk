@@ -1,4 +1,5 @@
 import unittest
+import responses
 
 from requests_oauthlib import OAuth1Session
 from unplag.file import File
@@ -12,6 +13,30 @@ class TestFullFileEntity(unittest.TestCase):
         self.assertIsInstance(file, File)
         self.assertIsInstance(file.oauth_session, OAuth1Session)
         self.assertEqual(file.server, 'https://unplag.com')
+
+    @responses.activate
+    def test_mock_delete(self):
+        responses.add(responses.POST, 'https://unplag.com/api/v2/file/delete',
+                 body='{"result": true}', status=200,
+                 content_type='application/json')
+
+        resp = file.delete(1)
+
+        assert resp.status_code == 200
+        assert resp.url == file.server + '/api/v2/file/delete'
+        assert resp.text == '{"result": true}'
+
+    @responses.activate
+    def test_mock_get(self):
+        responses.add(responses.GET, 'https://unplag.com/api/v2/file/get',
+                      body='{"result": true}', status=200,
+                      content_type='application/json')
+
+        resp = file.get(100500)
+
+        assert resp.status_code == 200
+        assert resp.url == file.server + '/api/v2/file/get?id=100500'
+        assert resp.text == '{"result": true}'
 
 
 if __name__ == "__main__":
