@@ -3,6 +3,10 @@ UNPLAG Python Library
 
 [![Build Status](https://api.travis-ci.org/Unplag/unplag-python-sdk.svg?branch=master)](https://travis-ci.org/Unplag/unplag-python-sdk)
 
+[![Coverage Status](https://coveralls.io/repos/github/Unplag/unplag-python-sdk/badge.svg)](https://coveralls.io/github/Unplag/unplag-python-sdk)
+
+[![PyPI version](https://badge.fury.io/py/unplag.svg)](https://badge.fury.io/py/unplag)
+
 This library eases the use of the Unplag REST API from Python and it has been used in production for years.
 
 As this is an open-source project that is community maintained, do not be surprised if some bugs or features are not implemented quickly enough.
@@ -12,7 +16,7 @@ Quickstart
 
 Installation
 
-    sudo pip install .
+    sudo pip install unplag
 
 Feeling impatient? I like your style.
 
