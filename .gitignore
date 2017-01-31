@@ -6,3 +6,5 @@
 /*.egg-info
 .tox
 .coverage
+.pypirc
+setup.cfg
