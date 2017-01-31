@@ -8,6 +8,11 @@ python:
 
 install:
   - travis_retry pip install tox-travis
+  - travis_retry pip install coveralls
   - travis_retry pip install -r requirements.txt
 
 script: tox
+
+after_success:
+  - coverage run --source=unplag -m unittest discover -s tests
+  - coveralls
