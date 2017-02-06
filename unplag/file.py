@@ -58,6 +58,8 @@ class File(object):
 
         upload_url = self.server + '/api/v2/file/upload'
 
+        # TODO: implement upload to custon directory here
+
         # Switch-case for type of upload
         if upload_type == 'multipart':
             file = MultipartEncoder(fields={'format': file_ext, 'file': ('check', open(path, 'rb'), 'application/' + file_ext)})
