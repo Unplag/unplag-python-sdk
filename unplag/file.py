@@ -37,7 +37,7 @@ class File(object):
         resp = self.oauth_session.get(self.server + '/api/v2/file/get?id=%s' % id)
         return UnplagFileResponse(resp)
 
-    def upload(self, path, upload_type='multipart', timeout=600):
+    def upload(self, path, upload_type='multipart', timeout=600, **kwargs):
         """
         Upload file to library
 
@@ -46,6 +46,7 @@ class File(object):
                             default is multipart
         :param timeout: timeout for uploading file,
                         default is 600 seconds (10 minutes)
+        :param kwargs: optional arguments like directory_id='12820', name="Example name"
         :return: UnplagFileResponse
         """
 
@@ -60,11 +61,15 @@ class File(object):
 
         # Switch-case for type of upload
         if upload_type == 'multipart':
-            file = MultipartEncoder(fields={'format': file_ext, 'file': ('check', open(path, 'rb'), 'application/' + file_ext)})
+            params = {'format': file_ext, 'file': ('check', open(path, 'rb'), 'application/' + file_ext)}
+            params.update(kwargs)
+            file = MultipartEncoder(fields=params)
             resp = self.oauth_session.post(upload_url, data=file, headers={'Content-Type':  file.content_type}, timeout=timeout)
 
         elif upload_type == 'msgpack':
-            file = packb({'format': file_ext, 'file': open(path, 'rb').read()})
+            params = {'format': file_ext, 'file': open(path, 'rb').read()}
+            params.update(kwargs)
+            file = packb(params)
             resp = self.oauth_session.post(upload_url, data=file, headers={'Content-Type':  'application/x-msgpack'}, timeout=timeout)
 
         else:

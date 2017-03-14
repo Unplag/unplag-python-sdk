@@ -98,3 +98,13 @@ class UnplagCheckResponse(UnplagResponse):
         UnplagResponse.__init__(self, response)
 
         self.check_responce()
+
+
+class UnplagDirectoryResponse(UnplagResponse):
+    """
+    Representing response object for Check methods
+    """
+    def __init__(self, response):
+        UnplagResponse.__init__(self, response)
+
+        self.check_responce()
