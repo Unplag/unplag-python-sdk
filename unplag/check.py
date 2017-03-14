@@ -94,8 +94,16 @@ class Check(object):
         return UnplagCheckResponse(resp)
 
     def get_report_link(self, id, lang='en_EN', show_lang_picker=0):
-        # TODO: check this one more time
-        resp = self.oauth_session.get(self.server + '/api/v2/check/get_report_link?id=%s?lang=%s?show_lang_picker=%s' % (id, lang, show_lang_picker))
+        """
+        Get report link in preffered language
+
+        :param id: check id
+        :param lang: check report language, allowed is en_EN, uk_UA, es_ES, nl_BE
+        :param show_lang_picker: bool
+        :return: UnplagCheckResponse
+        """
+
+        resp = self.oauth_session.get(self.server + '/api/v2/check/get_report_link?id=%s&lang=%s&show_lang_picker=%s' % (id, lang, show_lang_picker))
         return UnplagCheckResponse(resp)
 
     def toogle_citations(self, id, exclude_citations, exclude_references):

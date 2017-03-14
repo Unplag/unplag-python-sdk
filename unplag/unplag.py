@@ -6,6 +6,7 @@ https://unplag.com/api/doc
 
 from .connection import Connection
 from .file import File
+from .directory import Directory
 from .check import Check
 
 
@@ -41,6 +42,9 @@ class Unplag(object):
 
         # Initialize File entity
         self.file = File(self.oauth_session, self.server)
+
+        # Initialize Directory entity
+        self.directory = Directory(self.oauth_session, self.server)
 
         # Initialize Check entity
         self.check = Check(self.oauth_session, self.server)
